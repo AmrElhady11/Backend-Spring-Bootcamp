@@ -476,4 +476,4 @@ QQ-50. Write an SQL query to fetch the names of workers who earn the highest sal
 
 */
 #Ans50
-SELECT FIRST_NAME, SALARY from Worker WHERE SALARY=(SELECT max(SALARY) from Worker);
+select FIRST_NAME, SALARY from Worker where SALARY=(select max(SALARY) from Worker);
