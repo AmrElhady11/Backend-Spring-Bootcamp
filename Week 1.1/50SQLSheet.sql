@@ -51,14 +51,14 @@ INSERT INTO Title (WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
     (3, 'Lead', '2023-06-11 00:00:00');
     
 /*
-Q-1. Write an SQL query to fetch ìFIRST_NAMEî from the Worker table 
+Q-1. Write an SQL query to fetch ‚ÄúFIRST_NAME‚Äù from the Worker table 
 	   using the alias name <WORKER_NAME>.
 */
 #Answer1
 select FIRST_NAME as WORKER_NAME from worker ;
 
 /*
-Q-2. Write an SQL query to fetch ìFIRST_NAMEî from the Worker table in upper case.
+Q-2. Write an SQL query to fetch ‚ÄúFIRST_NAME‚Äù from the Worker table in upper case.
 */
 #Ans2
 select upper(FIRST_NAME) as WORKER_NAME from worker ;
@@ -80,8 +80,8 @@ select mid(FIRST_NAME,1,3)  from worker ;
 
 
 /*
-Q-5. Write an SQL query to find the position of the alphabet (ëaí) 
-	   in the first name column ëAmitabhí from the Worker table
+Q-5. Write an SQL query to find the position of the alphabet (‚Äòa‚Äô) 
+	   in the first name column ‚ÄòAmitabh‚Äô from the Worker table
 */
 #Ans5
 select locate('a',FIRST_NAME)  from worker where FIRST_NAME='Amitabh';
@@ -109,7 +109,7 @@ Q-8. Write an SQL query that fetches the unique values of DEPARTMENT
 select distinct DEPARTMENT , length(DEPARTMENT) from worker;
 /*
 Q-9. Write an SQL query to print the FIRST_NAME 
-		from the Worker table after replacing ëaí with ëAí.
+		from the Worker table after replacing ‚Äòa‚Äô with ‚ÄòA‚Äô.
         */
 #Ans9
 select replace(FIRST_NAME,'a','A')from worker;
@@ -143,7 +143,7 @@ select * from worker order by FIRST_NAME asc,DEPARTMENT desc ;
 
 /*
 Q-13. Write an SQL query to print details for Workers with 
-		the first names ìVipulî and ìSatishî from the Worker table.
+		the first names ‚ÄúVipul‚Äù and ‚ÄúSatish‚Äù from the Worker table.
 */
 #Ans13
 select * from worker where FIRST_NAME in ('Vipul','Satish');
@@ -153,7 +153,7 @@ select * from worker where FIRST_NAME in ('Vipul','Satish');
 
 /*
 Q-14. Write an SQL query to print details of workers 
-	  excluding first names, ìVipulî and ìSatishî from the Worker table.
+	  excluding first names, ‚ÄúVipul‚Äù and ‚ÄúSatish‚Äù from the Worker table.
 */
 #Ans14
 
@@ -162,7 +162,7 @@ select * from worker where FIRST_NAME not in ('Vipul','Satish');
 
 
 /*
-Q-15. Write an SQL query to print details of Workers with DEPARTMENT name as ìAdminî.
+Q-15. Write an SQL query to print details of Workers with DEPARTMENT name as ‚ÄúAdmin‚Äù.
 
 */
 #Ans15
@@ -172,7 +172,7 @@ select * from worker where DEPARTMENT='Admin';
 
 /*
 Q-16. Write an SQL query to print details of the Workers whose FIRST_NAME 
-contains ëaí.
+contains ‚Äòa‚Äô.
 */
 #Ans16
 select * from worker where FIRST_NAME like'%a%';
@@ -181,7 +181,7 @@ select * from worker where FIRST_NAME like'%a%';
 
 /*
 Q-17. Write an SQL query to print details of 
-		the Workers whose FIRST_NAME ends with ëaí.
+		the Workers whose FIRST_NAME ends with ‚Äòa‚Äô.
 */
 #Ans17
 select * from worker where FIRST_NAME like '%a';
@@ -190,7 +190,7 @@ select * from worker where FIRST_NAME like '%a';
 
 /*
 Q-18. Write an SQL query to print details of the Workers whose FIRST_NAME 
-		ends with ëhí and contains six alphabets.
+		ends with ‚Äòh‚Äô and contains six alphabets.
 
 */
 #Ans18
@@ -224,7 +224,7 @@ select * from worker where date_format(JOINING_DATE,'%y')=21 and
 
 /*
 Q-21. Write an SQL query to fetch the count of employees working in the department
- ëAdminí.
+ ‚ÄòAdmin‚Äô.
 
 */
 #Ans21
@@ -262,22 +262,218 @@ select  * from worker w inner join Title t on w.WORKER_ID=t.WORKER_REF_ID and t.
 
 
 /*
-Q-20. Write an SQL query to print details of the Workers who joined in Feb 2021.
+Q-25. Write an SQL query to fetch duplicate records having matching data 
+in some fields of a table.
 
 */
-#Ans20
+#Ans25
+
+select WORKER_TITLE, AFFECTED_FROM, count(*) from title 
+group by  WORKER_TITLE, AFFECTED_FROM having count(*) > 1;
+
+
 /*
-Q-20. Write an SQL query to print details of the Workers who joined in Feb 2021.
+Q-26. Write an SQL query to show only odd rows from a table.
 
 */
-#Ans20
+#Ans26
+select * from Worker where WORKER_ID%2 <> 0;
 /*
-Q-20. Write an SQL query to print details of the Workers who joined in Feb 2021.
+Q-27. Write an SQL query to show only even rows from a table.
 
 */
-#Ans20
+#Ans27
+select * from Worker where WORKER_ID%2 = 0;
+
 /*
-Q-20. Write an SQL query to print details of the Workers who joined in Feb 2021.
+Q-28. Write an SQL query to clone a new table from another table.
 
 */
-#Ans20
+#Ans28
+
+CREATE TABLE newWorker AS SELECT * FROM Worker;
+/*
+Q-29. Write an SQL query to fetch intersecting records of two tables.
+
+*/
+#Ans29
+select w.FIRST_NAME , b.BONUS_AMOUNT from Worker as w inner join Bonus as b
+ on w.WORKER_ID=b.WORKER_REF_ID;
+/*
+Q-30. Write an SQL query to show records from one table that another table
+ does not have.
+
+*/
+#Ans30
+select w.FIRST_NAME , b.BONUS_AMOUNT from Worker as w left join Bonus as b
+ on w.WORKER_ID=b.WORKER_REF_ID;
+ 
+/*
+Q-31. Write an SQL query to show the current date and time.
+
+*/
+#Ans31
+select current_timestamp();
+select current_date() , current_time();
+
+/*
+Q-32. Write an SQL query to show the top n (say 5) records of a table.
+
+*/
+#Ans32
+select * from Worker order by SALARY desc limit 5;
+
+/*
+Q-33. Write an SQL query to determine the nth (say n=5) highest salary from a table.
+
+*/
+#Ans33
+select * from Worker order by SALARY desc limit 1 offset 4;
+
+/*
+Q-34. Write an SQL query to determine the 5th highest salary without using the TOP
+ or limit method.
+
+*/
+#Ans34
+SELECT Salary FROM Worker W1 WHERE 4 = (SELECT COUNT(DISTINCT W2.Salary) 
+FROM Worker W2 WHERE W2.Salary >= W1.Salary);
+
+
+/*
+Q-35. Write an SQL query to fetch the list of employees with the same salary.
+
+*/
+#Ans35
+select  distinct* from Worker w1 ,Worker w2 where w1.Salary = w2.Salary 
+and W1.WORKER_ID <> W2.WORKER_ID;
+
+/*
+Q-36. Write an SQL query to show the second-highest salary from a table.
+
+*/
+#Ans36
+select max(Salary) from Worker where Salary not IN (select max(Salary) from Worker);
+/*
+Q-37. Write an SQL query to show one row twice in the results from a table.
+
+*/
+#Ans37
+select * from Worker w1 where w1.WORKER_ID =1
+union all
+select * from Worker w2 where w2.WORKER_ID =1 ;
+/*
+Q-38. Write an SQL query to fetch intersecting records of two tables.
+
+*/
+#Ans38
+select w.FIRST_NAME , b.BONUS_AMOUNT from Worker as w inner join Bonus as b
+ on w.WORKER_ID=b.WORKER_REF_ID;
+/*
+Q-39. Write an SQL query to fetch the first 50% of records from a table.
+
+*/
+#Ans39
+SELECT * FROM WORKER WHERE WORKER_ID <= (SELECT count(WORKER_ID)/2 from Worker);
+
+/*
+Q-40. Write an SQL query to fetch the departments that have less than five people 
+	in them.
+
+*/
+#Ans40
+select DEPARTMENT, count(WORKER_ID) n  from Worker group by DEPARTMENT having n <5;
+/*
+Q-41. Write an SQL query to show all departments along with the number of people
+ in there.
+
+
+*/
+#Ans41
+select DEPARTMENT, count(WORKER_ID) n  from Worker group by DEPARTMENT;
+
+/*
+Q-42. Write an SQL query to show the last record from a table.
+
+
+*/
+#Ans42
+select* from Worker order by WORKER_ID desc limit 1 ;
+#another solution 
+Select * from Worker where WORKER_ID = (SELECT max(WORKER_ID) from Worker);
+/*
+Q-43. Write an SQL query to fetch the first row of a table.
+
+
+*/
+#Ans43
+Select * from Worker where WORKER_ID = (SELECT min(WORKER_ID) from Worker);
+
+/*
+Q-44. Write an SQL query to fetch the last five records from a table.
+
+
+*/
+#Ans44
+Select * from Worker w1 where 5 > (SELECT count(WORKER_ID) from Worker w2 where w1.WORKER_ID <w2.WORKER_ID );
+#Aonther Solution
+SELECT * FROM Worker ORDER BY WORKER_ID DESC LIMIT 5;
+
+
+
+/*
+Q-45. Write an SQL query to print the names of employees having the highest salary
+	in each department.
+
+*/
+#Ans45
+select FIRST_NAME,DEPARTMENT , Salary from Worker w1 where Salary in  
+(select max(Salary)  from Worker w2 group by DEPARTMENT);
+
+
+
+/*
+Q-46. Write an SQL query to fetch three max salaries from a table.
+
+
+*/
+#Ans46
+select distinct Salary from Worker w1 where 3 >= (select count(WORKER_ID) from Worker w2
+ where w1.Salary < w2.Salary );
+
+
+
+/*
+Q-47. Write an SQL query to fetch three min salaries from a table.
+*/
+#Ans47
+select distinct Salary from Worker w1 where 3> (select count(WORKER_ID) 
+from Worker w2 where w1.Salary > w2.Salary );
+
+
+/*
+Q-48. Write an SQL query to fetch nth max salaries from a table.
+
+
+*/
+#Ans48
+select distinct Salary from Worker w1 where 2= (select count(WORKER_ID) 
+from Worker w2 where w1.Salary< w2.Salary );
+
+
+/*
+Q-49. Write an SQL query to fetch departments along with the total salaries
+ paid for each of them.
+
+
+*/
+#Ans49
+select DEPARTMENT , sum(Salary) from Worker group by DEPARTMENT;
+
+
+/*
+QQ-50. Write an SQL query to fetch the names of workers who earn the highest salary.
+
+*/
+#Ans50
+SELECT FIRST_NAME, SALARY from Worker WHERE SALARY=(SELECT max(SALARY) from Worker);
