@@ -49,6 +49,10 @@ public class DatabaseUtil {
     }
 
     public boolean addVehicle(String model,String price,String color,String typeOfVehicle) throws SQLException {
+          
+        if(model==null||price==null||color==null||typeOfVehicle==null)
+            return false;
+        
         try {
 
 
