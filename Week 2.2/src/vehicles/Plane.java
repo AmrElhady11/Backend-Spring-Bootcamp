@@ -53,8 +53,7 @@ public class Plane implements Vehicle {
 
     @Override
     public boolean saveToDB() throws SQLException {
-        if(model==null||price==null||color==null||typeOfVehicle==null)
-            return false;
+       
         return databaseUtil.addVehicle(model,price,color,typeOfVehicle);
 
     }
