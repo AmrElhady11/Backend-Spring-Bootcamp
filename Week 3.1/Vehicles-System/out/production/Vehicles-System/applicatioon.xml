@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+<context:property-placeholder location="application.properties"/>
+
+<bean id="dataBaseOperations"
+      class="dao.DataBaseOperations" scope="singleton" init-method="connectToDataBase"
+                                                       destroy-method="disconnectFromDataBase">
+    <constructor-arg index="0" value="${database.url}"/>
+    <constructor-arg index="1" value="${database.username}"/>
+    <constructor-arg index="2" value="${database.password}"/>
+
+</bean>
+    <bean id = "car" class="models.Car" scope="prototype">
+        <constructor-arg name="dataBaseOperations" ref="dataBaseOperations"/>
+    </bean>
+
+<bean id = "plane" class="models.Plane" scope="prototype">
+<constructor-arg name="dataBaseOperations" ref="dataBaseOperations"/>
+</bean>
+
+<bean id = "motorBike" class="models.MotorBike" scope="prototype">
+<constructor-arg name="dataBaseOperations" ref="dataBaseOperations"/>
+</bean>
+    <bean id = "carController" class="controller.CarController" scope="prototype">
+        <constructor-arg name="dataBaseOperations" ref="dataBaseOperations"/>
+    </bean>
+    <bean id = "motorBikeController" class="controller.MotorBikeController" scope="prototype">
+        <constructor-arg name="dataBaseOperations" ref="dataBaseOperations"/>
+    </bean>
+    <bean id = "planeController" class="controller.PlaneController" scope="prototype">
+        <constructor-arg name="dataBaseOperations" ref="dataBaseOperations"/>
+    </bean>
+
+
+</beans>
