@@ -1,3 +1,0 @@
-main.com.myApp.Models.User=org.springframework.stereotype.Component
-main.com.myApp.config.WebConfig=org.springframework.stereotype.Component
-main.com.myApp.controller.HomeController=org.springframework.stereotype.Component
